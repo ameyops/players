@@ -3,9 +3,9 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
   name: String,
-  matches: String,
+  matches: Number,
   role: String,
-  runs: String,
+  runs: Number,
   _50s: String,
   _100s: String,
   highest_score: String,

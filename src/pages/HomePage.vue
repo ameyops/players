@@ -1,16 +1,37 @@
 <script setup>
+import { computed, ref } from 'vue';
 import players from '../data/players.js';
 import CardComponent from '../components/CardComponent.vue';
 
-console.log(players);
+
+const selected = ref('role');
+
+
+const sortedPlayers = computed(() => {
+  return [...players].sort((a, b) => {
+    if (selected.value === 'role') {
+      return b.runs - a.runs;
+    } else if (selected.value === 'matches') {
+      return b.matches - a.matches;
+    } else if (selected.value === 'highest_score') {
+      return b.highest_score - a.highest_score;
+    }
+    return 0;
+  });
+});
 </script>
 
 <template>
     <div>
+        <select v-model="selected">
+            <option value="role">Runs</option>
+            <option value="matches">Matches</option>
+            <option value="highest_score">Highest Score</option>
+          </select>
 
         <div class="card">
             <CardComponent 
-            v-for="(player, index) in players" 
+            v-for="(player, index) in sortedPlayers" 
             :key="index" 
             :name="player.name" 
             :matches="player.matches" 
